@@ -1,0 +1,34 @@
+name: Aspirin cures Fever
+condition: patient.state == State.FEVER && drugs.contains('As')
+actions:
+  - patient.state = State.HEALTHY
+---
+name: Antibiotic cures Tuberculosis
+condition: patient.state == State.TUBERCULOSIS && drugs.contains('An')
+actions:
+  - patient.state = State.HEALTHY
+---
+name: Insulin prevents diabetic subject from dying, does not cure Diabetes
+condition: patient.state == State.DIABETES && !drugs.contains('I')
+actions:
+  - patient.state = State.DEAD
+---
+name: Insulin mixed with Antibiotic causes Healthy people to catch Fever
+condition: drugs.contains('I') && drugs.contains('An') && patient.state == State.HEALTHY
+actions:
+  - patient.state = State.FEVER
+---
+name: Paracetamol cures Fever
+condition: patient.state == State.FEVER && drugs.contains('P')
+actions:
+  - patient.state = State.HEALTHY
+---
+name: Paracetamol kills subjects if mixed with Aspirin
+condition: drugs.contains('P') && drugs.contains('As')
+actions:
+  - patient.state = State.DEAD
+---
+name: One time in a million the Flying Spaghetti Monster shows his noodly power and resurrects a Dead patient, the patient becomes Healthy
+condition: patient.state == State.DEAD && new java.util.Random().nextInt(1000000) + 1 == 1
+actions:
+  - patient.state = State.HEALTHY

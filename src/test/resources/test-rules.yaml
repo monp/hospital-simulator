@@ -1,0 +1,4 @@
+name: Aspirin cures Fever
+condition: patient.state == State.FEVER && drugs.contains('As')
+actions:
+  - patient.state = State.HEALTHY
